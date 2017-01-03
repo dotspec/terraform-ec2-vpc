@@ -1,6 +1,6 @@
 variable "vpc_cidr_block" { }
-variable "vpc_domain_name" { }
-variable "vpc_domain_name_servers" { type = "list" }
+#variable "vpc_domain_name" { }
+#variable "vpc_domain_name_servers" { type = "list" }
 variable "vpc_name_tag" { }
 
 resource "aws_vpc" "ec2_vpc" {
