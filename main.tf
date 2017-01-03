@@ -9,7 +9,6 @@ resource "aws_vpc" "ec2_vpc" {
 
 resource "aws_vpc_dhcp_options" "ec2_vpc_dhcp_options" {
   domain_name         = "${var.vpc_domain_name}"
-  domain_name_servers = "${var.vpc_domain_name_servers}"
 
   tags {
     Name = "${var.vpc_name_tag}"
