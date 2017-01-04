@@ -11,6 +11,14 @@ resource "aws_vpc" "ec2_vpc" {
   }
 }
 
+resource "aws_internet_gateway" "default" {
+  vpc_id = "${aws_vpc.ec2_vpc.id}"
+  
+  tags {
+    Name = "${var.vpc_name_tag}"
+  }
+}
+
 /*resource "aws_vpc_dhcp_options" "ec2_vpc_dhcp_options" {
 
 
