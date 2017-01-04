@@ -5,16 +5,16 @@ variable "vpc_name_tag" { }
 
 resource "aws_vpc" "ec2_vpc" {
   cidr_block = "${var.vpc_cidr_block}"
-  
+
   tags {
     Name = "${var.vpc_name_tag}"
   }
 }
 
-resource "aws_vpc_dhcp_options" "ec2_vpc_dhcp_options" {
+/*resource "aws_vpc_dhcp_options" "ec2_vpc_dhcp_options" {
 
 
-}
+}*/
 
 /*resource "aws_vpc_dhcp_options_association" "ec2_vpc_dhcp_options_association" {
   vpc_id          = "${aws_vpc.ec2_vpc.id}"
