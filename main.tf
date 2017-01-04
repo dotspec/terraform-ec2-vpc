@@ -19,6 +19,11 @@ resource "aws_internet_gateway" "ec2_igw" {
   }
 }
 
+resource "aws_route_table" "ec2_route_table" {
+  vpc_id = "${aws_vpc.ec2_vpc.id}"
+}
+
+
 /*resource "aws_vpc_dhcp_options" "ec2_vpc_dhcp_options" {
 
 
