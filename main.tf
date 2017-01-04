@@ -11,9 +11,9 @@ resource "aws_vpc" "ec2_vpc" {
   }
 }
 
-resource "aws_internet_gateway" "default" {
+resource "aws_internet_gateway" "ec2_igw" {
   vpc_id = "${aws_vpc.ec2_vpc.id}"
-  
+
   tags {
     Name = "${var.vpc_name_tag}"
   }
