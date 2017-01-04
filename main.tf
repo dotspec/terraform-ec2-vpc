@@ -14,11 +14,11 @@ resource "aws_vpc_dhcp_options" "ec2_vpc_dhcp_options" {
   }
 }
 
-resource "aws_vpc_dhcp_options_association" "ec2_vpc_dhcp_options_association" {
+/*resource "aws_vpc_dhcp_options_association" "ec2_vpc_dhcp_options_association" {
   vpc_id          = "${aws_vpc.ec2_vpc.id}"
   dhcp_options_id = "${aws_vpc_dhcp_options.ec2_vpc_dhcp_options.id}"
 }
 
-resource "aws_internet_gateway" "ec2_vpc_dhcp_options" {
+resource "aws_internet_gateway" "ec2_vpc_internet_gateway" {
   vpc_id = "${aws_vpc.ec2_vpc.id}"
-}
+}*/
