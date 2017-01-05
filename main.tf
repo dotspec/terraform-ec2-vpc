@@ -1,7 +1,7 @@
 variable "vpc_cidr_block" { }
 #variable "vpc_domain_name" { }
 #variable "vpc_domain_name_servers" { type = "list" }
-variable "vpc_name_tag" { }
+variable "vpc_name" { }
 variable "private_subnets" { type = "list" }
 variable "avail_zones" { type = "list"  }
 
@@ -9,7 +9,7 @@ resource "aws_vpc" "ec2_vpc" {
   cidr_block = "${var.vpc_cidr_block}"
 
   tags {
-    Name = "${var.vpc_name_tag}"
+    Name = "${var.vpc_name}"
   }
 }
 
@@ -17,7 +17,7 @@ resource "aws_internet_gateway" "ec2_igw" {
   vpc_id = "${aws_vpc.ec2_vpc.id}"
 
   tags {
-    Name = "${var.vpc_name_tag}-IGW"
+    Name = "${var.vpc_name}-IGW"
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_subnet" "private_subnet" {
   count                   = "${length(var.private_subnets)}"
 
   tags {
-    Name = "${vpc_name_tag}-subnet-private-${element(var.avail_zones, count.index)}"
+    Name = "${var.vpc_name}-subnet-private-${element(var.avail_zones, count.index)}"
   }
 }
 
