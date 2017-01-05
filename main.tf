@@ -48,9 +48,8 @@ resource "aws_subnet" "ec2_public_subnet" {
   }
 }
 
-/*resource "aws_route_table" "ec2_private_route_table" {
+resource "aws_route_table" "ec2_private_route_table" {
   vpc_id           = "${aws_vpc.ec2_vpc.id}"
-  propagating_vgws = [ "${var.propagating_vgws}" ]
 }
 
 resource "aws_route_table_association" "ec2_private_route_table_assn" {
@@ -61,14 +60,13 @@ resource "aws_route_table_association" "ec2_private_route_table_assn" {
 
 resource "aws_route_table" "ec2_public_route_table" {
   vpc_id           = "${aws_vpc.ec2_vpc.id}"
-  propagating_vgws = [ "${var.propagating_vgws}" ]
 }
 
 resource "aws_route_table_association" "ec2_public_route_table_assn" {
   count          = "${length(var.public_subnets)}"
   subnet_id      = "${element(aws_subnet.ec2_public_subnet.*.id, count.index)}"
   route_table_id = "${aws_route_table.ec2_public_route_table.id}"
-}*/
+}
 
 
 /*resource "aws_vpc_dhcp_options" "ec2_vpc_dhcp_options" {
