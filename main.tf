@@ -5,7 +5,7 @@ variable "vpc_name" { }
 variable "private_subnets" { type = "list" }
 variable "public_subnets" { type = "list" }
 variable "avail_zones" { type = "list"  }
-variable "propagating_vgws" { type = "list" }
+#variable "propagating_vgws" { type = "list" }
 
 
 resource "aws_vpc" "ec2_vpc" {
