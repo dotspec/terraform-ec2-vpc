@@ -22,10 +22,11 @@ resource "aws_internet_gateway" "ec2_igw" {
 }
 
 resource "aws_subnet" "private_subnet" {
-  vpc_id            = "${aws_vpc.ec2_vpc.id}"
-  cidr_block        = "${var.private_subnets[count.index]}"
-  availability_zone = "${var.avail_zones[count.index]}"
-  count             = "${length(var.private_subnets)}"
+  vpc_id                  = "${aws_vpc.ec2_vpc.id}"
+  cidr_block              = "${var.private_subnets[count.index]}"
+  availability_zone       = "${var.avail_zones[count.index]}"
+  map_public_ip_on_launch = false
+  count                   = "${length(var.private_subnets)}"
 
   tags {
     Name = "${vpc_name_tag}-subnet-private-${element(var.avail_zones, count.index)}"
