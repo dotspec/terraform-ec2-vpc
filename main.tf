@@ -11,17 +11,17 @@ resource "aws_vpc" "ec2_vpc" {
   }
 }
 
-/*resource "aws_internet_gateway" "ec2_igw" {
+resource "aws_internet_gateway" "ec2_igw" {
   vpc_id = "${aws_vpc.ec2_vpc.id}"
 
   tags {
-    Name = "${var.vpc_name_tag}"
+    Name = "${var.vpc_name_tag}-IGW"
   }
 }
-
+/*
 resource "aws_route_table" "ec2_route_table" {
   vpc_id = "${aws_vpc.ec2_vpc.id}"
-}*/
+}
 
 
 /*resource "aws_vpc_dhcp_options" "ec2_vpc_dhcp_options" {
