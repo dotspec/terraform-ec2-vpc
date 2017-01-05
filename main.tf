@@ -3,6 +3,7 @@ variable "vpc_cidr_block" { }
 #variable "vpc_domain_name_servers" { type = "list" }
 variable "vpc_name" { }
 variable "private_subnets" { type = "list" }
+variable "public_subnets" { type = "list" }
 variable "avail_zones" { type = "list"  }
 
 resource "aws_vpc" "ec2_vpc" {
