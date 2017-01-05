@@ -5,6 +5,8 @@ variable "vpc_name" { }
 variable "private_subnets" { type = "list" }
 variable "public_subnets" { type = "list" }
 variable "avail_zones" { type = "list"  }
+variable "propagating_vgws" { type = "list" }
+
 
 resource "aws_vpc" "ec2_vpc" {
   cidr_block = "${var.vpc_cidr_block}"
@@ -30,7 +32,7 @@ resource "aws_subnet" "ec2_private_subnet" {
   count                   = "${length(var.private_subnets)}"
 
   tags {
-    Name = "${var.vpc_name}-subnet-private-${element(var.avail_zones, count.index)}"
+    Name = "${var.vpc_name}-private-${element(var.avail_zones, count.index)}"
   }
 }
 
@@ -42,13 +44,30 @@ resource "aws_subnet" "ec2_public_subnet" {
   count                   = "${length(var.public_subnets)}"
 
   tags {
-    Name = "${var.vpc_name}-subnet-public-${element(var.avail_zones, count.index)}"
+    Name = "${var.vpc_name}-public-${element(var.avail_zones, count.index)}"
   }
 }
 
-/*
-resource "aws_route_table" "ec2_route_table" {
-  vpc_id = "${aws_vpc.ec2_vpc.id}"
+resource "aws_route_table" "ec2_private_route_table" {
+  vpc_id           = "${aws_vpc.ec2_vpc.id}"
+  propagating_vgws = [ "${var.propagating_vgws}" ]
+}
+
+resource "aws_route_table_association" "ec2_private_route_table_assn" {
+  count          = "${length(var.private_subnets)}"
+  subnet_id      = "${element(aws_subnet.ec2_private_subnet.*.id, count.index)}"
+  route_table_id = "${aws_route_table.ec2_private_route_table.id}"
+}
+
+resource "aws_route_table" "ec2_public_route_table" {
+  vpc_id           = "${aws_vpc.ec2_vpc.id}"
+  propagating_vgws = [ "${var.propagating_vgws}" ]
+}
+
+resource "aws_route_table_association" "ec2_public_route_table_assn" {
+  count          = "${length(var.public_subnets)}"
+  subnet_id      = "${element(aws_subnet.ec2_public_subnet.*.id, count.index)}"
+  route_table_id = "${aws_route_table.ec2_public_route_table.id}"
 }
 
 
