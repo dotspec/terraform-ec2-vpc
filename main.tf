@@ -24,6 +24,8 @@ resource "aws_internet_gateway" "ec2_igw" {
   }
 }
 
+### Configure your subnets yo.
+
 resource "aws_subnet" "ec2_private_subnet" {
   vpc_id                  = "${aws_vpc.ec2_vpc.id}"
   cidr_block              = "${var.private_subnets[count.index]}"
@@ -48,6 +50,8 @@ resource "aws_subnet" "ec2_public_subnet" {
   }
 }
 
+## Make a routing table?  Why not associate it too?
+
 resource "aws_route_table" "ec2_private_route_table" {
   vpc_id           = "${aws_vpc.ec2_vpc.id}"
 }
@@ -67,18 +71,3 @@ resource "aws_route_table_association" "ec2_public_route_table_assn" {
   subnet_id      = "${element(aws_subnet.ec2_public_subnet.*.id, count.index)}"
   route_table_id = "${aws_route_table.ec2_public_route_table.id}"
 }
-
-
-/*resource "aws_vpc_dhcp_options" "ec2_vpc_dhcp_options" {
-
-
-}*/
-
-/*resource "aws_vpc_dhcp_options_association" "ec2_vpc_dhcp_options_association" {
-  vpc_id          = "${aws_vpc.ec2_vpc.id}"
-  dhcp_options_id = "${aws_vpc_dhcp_options.ec2_vpc_dhcp_options.id}"
-}
-
-resource "aws_internet_gateway" "ec2_vpc_internet_gateway" {
-  vpc_id = "${aws_vpc.ec2_vpc.id}"
-}*/
