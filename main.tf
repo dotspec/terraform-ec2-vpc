@@ -1,7 +1,5 @@
 variable "vpc_cidr_block" {}
 
-#variable "vpc_domain_name" { }
-#variable "vpc_domain_name_servers" { type = "list" }
 variable "vpc_name" {}
 
 variable "private_subnets" {
