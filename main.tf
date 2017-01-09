@@ -1,12 +1,22 @@
-variable "vpc_cidr_block" { }
+variable "vpc_cidr_block" {}
+
 #variable "vpc_domain_name" { }
 #variable "vpc_domain_name_servers" { type = "list" }
-variable "vpc_name" { }
-variable "private_subnets" { type = "list" }
-variable "public_subnets" { type = "list" }
-variable "avail_zones" { type = "list"  }
-#variable "propagating_vgws" { type = "list" }
+variable "vpc_name" {}
 
+variable "private_subnets" {
+  type = "list"
+}
+
+variable "public_subnets" {
+  type = "list"
+}
+
+variable "avail_zones" {
+  type = "list"
+}
+
+#variable "propagating_vgws" { type = "list" }
 
 resource "aws_vpc" "ec2_vpc" {
   cidr_block = "${var.vpc_cidr_block}"
@@ -53,7 +63,11 @@ resource "aws_subnet" "ec2_public_subnet" {
 ## Make a routing table?  Why not associate it too?
 
 resource "aws_route_table" "ec2_private_route_table" {
-  vpc_id           = "${aws_vpc.ec2_vpc.id}"
+  vpc_id = "${aws_vpc.ec2_vpc.id}"
+
+  tags {
+    Name = "${var.vpc_name}-private-routing-table"
+  }
 }
 
 resource "aws_route_table_association" "ec2_private_route_table_assn" {
@@ -63,7 +77,11 @@ resource "aws_route_table_association" "ec2_private_route_table_assn" {
 }
 
 resource "aws_route_table" "ec2_public_route_table" {
-  vpc_id           = "${aws_vpc.ec2_vpc.id}"
+  vpc_id = "${aws_vpc.ec2_vpc.id}"
+
+  tags {
+    Name = "${var.vpc_name}-public-routing-table"
+  }
 }
 
 resource "aws_route_table_association" "ec2_public_route_table_assn" {
