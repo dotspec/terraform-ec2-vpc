@@ -97,5 +97,6 @@ resource "aws_route_table_association" "ec2_public_route_table_assn" {
 resource "aws_route" "ec2_public_routes" {
   count                  = "${length(var.public_routes)}"
   route_table_id         = "${aws_route_table.ec2_public_route_table.id}"
-  destination_cidr_block = "${lookup(var.public_routes, route)}"
+  destination_cidr_block = "{values(var.public_routes)}
+#  destination_cidr_block = "${lookup(var.public_routes, route)}"
 }
