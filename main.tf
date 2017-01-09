@@ -93,9 +93,3 @@ resource "aws_route_table_association" "ec2_public_route_table_assn" {
   subnet_id      = "${element(aws_subnet.ec2_public_subnet.*.id, count.index)}"
   route_table_id = "${aws_route_table.ec2_public_route_table.id}"
 }
-
-resource "aws_route" "ec2_public_routes" {
-  count                  = "${length(var.public_routes)}"
-  route_table_id         = "${aws_route_table.ec2_public_route_table.id}"
-  destination_cidr_block = "${lookup(var.public_routes, route_cidr)}"
-}
