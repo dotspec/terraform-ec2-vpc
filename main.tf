@@ -16,7 +16,11 @@ variable "avail_zones" {
   type = "list"
 }
 
-#variable "propagating_vgws" { type = "list" }
+variable "public_routes" {
+  type = "map"
+}
+
+## Resources 
 
 resource "aws_vpc" "ec2_vpc" {
   cidr_block = "${var.vpc_cidr_block}"
@@ -88,4 +92,10 @@ resource "aws_route_table_association" "ec2_public_route_table_assn" {
   count          = "${length(var.public_subnets)}"
   subnet_id      = "${element(aws_subnet.ec2_public_subnet.*.id, count.index)}"
   route_table_id = "${aws_route_table.ec2_public_route_table.id}"
+}
+
+resource "aws_route" "ec2_public_routes" {
+  count                  = "${length(var.public_routes)}"
+  route_table_id         = "${aws_route_table.ec2_public_route_table.id}"
+  destination_cidr_block = "${lookup(var.public_routes, route)}"
 }
