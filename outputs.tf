@@ -9,3 +9,7 @@ output "ec2_public_routing_table_id" {
 output "ec2_private_routing_table_id" {
   value = "${aws_route_table.ec2_private_route_table.id}"
 }
+
+output "ec2_internet_gateway_id" {
+  value = "${aws_internet_gateway.ec2_igw.id}"
+}
