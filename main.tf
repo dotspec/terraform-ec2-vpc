@@ -16,10 +16,6 @@ variable "avail_zones" {
   type = "list"
 }
 
-variable "public_routes" {
-  type = "map"
-}
-
 ## Resources 
 
 resource "aws_vpc" "ec2_vpc" {
