@@ -15,7 +15,7 @@ output "ec2_internet_gateway_id" {
 }
 
 output "ec2_public_subnet_ids" {
-  value = "${join(",", aws_subnet.ec2_public_subnet.*.id)}"
+  value = ["${aws_subnet.ec2_public_subnet.*.id}"]
 }
 
 output "ec2_private_subnet_ids" {
