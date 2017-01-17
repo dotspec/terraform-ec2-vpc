@@ -56,7 +56,7 @@ resource "aws_route_table" "ec2_private_route_table" {
 resource "aws_route_table_association" "ec2_private_route_table_assn" {
   count          = "${length(var.private_subnets)}"
   subnet_id      = "${element(aws_subnet.ec2_private_subnet.*.id, count.index)}"
-  route_table_id = "${aws_route_table.ec2_private_route_table.id}"
+  route_table_id = "${element(aws_route_table.ec2_private_route_table.*.id, count.index)}"
 }
 
 resource "aws_route_table" "ec2_public_route_table" {
@@ -71,5 +71,5 @@ resource "aws_route_table" "ec2_public_route_table" {
 resource "aws_route_table_association" "ec2_public_route_table_assn" {
   count          = "${length(var.public_subnets)}"
   subnet_id      = "${element(aws_subnet.ec2_public_subnet.*.id, count.index)}"
-  route_table_id = "${aws_route_table.ec2_public_route_table.id}"
+  route_table_id = "${element(aws_route_table.ec2_public_route_table.*.id, count.index)}"
 }
