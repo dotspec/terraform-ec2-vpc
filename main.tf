@@ -49,7 +49,7 @@ resource "aws_route_table" "ec2_private_route_table" {
   vpc_id = "${aws_vpc.ec2_vpc.id}"
 
   tags {
-    Name = "${var.vpc_name}-${element(var.private_subnets, count.index)}-routing-table"
+    Name = "${var.vpc_name}-${element(var.private_subnets, count.index)}-priv-RT"
   }
 }
 
@@ -64,7 +64,7 @@ resource "aws_route_table" "ec2_public_route_table" {
   vpc_id = "${aws_vpc.ec2_vpc.id}"
 
   tags {
-    Name = "${var.vpc_name}-${element(var.public_subnets, count.index)}-routing-table"
+    Name = "${var.vpc_name}-${element(var.public_subnets, count.index)}-pub-RT"
   }
 }
 
