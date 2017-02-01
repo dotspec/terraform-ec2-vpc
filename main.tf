@@ -42,7 +42,7 @@ resource "aws_subnet" "ec2_public_subnet" {
   }
 }
 
-## Make a routing table?  Why not associate it too?
+## Make a routing table? How about two?  Why not associate it?
 
 resource "aws_route_table" "ec2_private_route_table" {
   count  = "${length(var.private_subnets)}"
