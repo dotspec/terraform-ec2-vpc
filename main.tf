@@ -26,7 +26,8 @@ resource "aws_subnet" "ec2_private_subnet" {
   count                   = "${length(var.private_subnets)}"
 
   tags {
-    Name = "${var.vpc_name}-private-${element(var.avail_zones, count.index)}"
+    Name    = "${var.vpc_name}-private-${element(var.avail_zones, count.index)}"
+    Routing = "Private"
   }
 }
 
