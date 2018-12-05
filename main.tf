@@ -21,7 +21,7 @@ resource "aws_internet_gateway" "ec2_igw" {
 resource "aws_subnet" "ec2_private_subnet" {
   vpc_id                  = "${aws_vpc.ec2_vpc.id}"
   cidr_block              = "${var.private_subnets[count.index]}"
-  availability_zone       = "${var.avail_zones[count.index]}"
+  availability_zone       = "${element(var.avail_zones, count.index)}"
   map_public_ip_on_launch = false
   count                   = "${length(var.private_subnets)}"
 
@@ -33,7 +33,7 @@ resource "aws_subnet" "ec2_private_subnet" {
 resource "aws_subnet" "ec2_public_subnet" {
   vpc_id                  = "${aws_vpc.ec2_vpc.id}"
   cidr_block              = "${var.public_subnets[count.index]}"
-  availability_zone       = "${var.avail_zones[count.index]}"
+  availability_zone       = "${element(var.avail_zones, count.index)}"
   map_public_ip_on_launch = true
   count                   = "${length(var.public_subnets)}"
 
